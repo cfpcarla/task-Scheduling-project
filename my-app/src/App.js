@@ -87,7 +87,35 @@ const SimpleModal = () => {
                 <MenuItem value={2}>week 2</MenuItem>
                 <MenuItem value={3}>week 3</MenuItem>
                 <MenuItem value={4}>week 4</MenuItem>
-                <MenuItem value={5}>week 5</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="grouped-select">Hour</InputLabel>
+              <Select defaultValue="" id="grouped-select">
+                <MenuItem value={1}> 12 Am </MenuItem>
+                <MenuItem value={2}> 1 Am </MenuItem>
+                <MenuItem value={3}> 2 Am </MenuItem>
+                <MenuItem value={4}> 3 Am </MenuItem>
+                <MenuItem value={5}> 4 Am </MenuItem>
+                <MenuItem value={6}> 5 Am </MenuItem>
+                <MenuItem value={7}> 6 Am </MenuItem>
+                <MenuItem value={8}> 7 Am </MenuItem>
+                <MenuItem value={9}> 8 Am </MenuItem>
+                <MenuItem value={10}> 9 Am </MenuItem>
+                <MenuItem value={11}> 10 Am </MenuItem>
+                <MenuItem value={12}> 11 Am </MenuItem>
+                <MenuItem value={13}> 12 Pm </MenuItem>
+                <MenuItem value={14}> 1 Pm </MenuItem>
+                <MenuItem value={15}> 2 Pm </MenuItem>
+                <MenuItem value={16}> 3 Pm </MenuItem>
+                <MenuItem value={17}> 4 Pm </MenuItem>
+                <MenuItem value={18}> 5 Pm </MenuItem>
+                <MenuItem value={19}> 6 Pm </MenuItem>
+                <MenuItem value={20}> 7 Pm </MenuItem>
+                <MenuItem value={21}> 8 Pm </MenuItem>
+                <MenuItem value={22}> 9 Pm </MenuItem>
+                <MenuItem value={22}> 10 Pm </MenuItem>
+                <MenuItem value={23}> 11 Pm </MenuItem>
               </Select>
             </FormControl>
             <button
