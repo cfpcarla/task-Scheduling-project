@@ -15,25 +15,12 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Box from "@material-ui/core/Box";
 import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
-
-function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
-
+//Modal
 const SimpleModal = () => {
   const classes = useStyles();
-  const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
@@ -44,25 +31,74 @@ const SimpleModal = () => {
     setOpen(false);
   };
 
-  const body = (
-    <div className={classes.paper}>
-      <h2 id="simple-modal-title">Add a new task</h2>
-      <SimpleModal />
-    </div>
-  );
-
   return (
     <div>
       <button className={classes.button} type="button" onClick={handleOpen}>
         Add Task
       </button>
       <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
         open={open}
         onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description"
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
       >
-        {body}
+        <Fade in={open}>
+          <div className={classes.paper}>
+            <h4 id="transition-modal-title">Add new task</h4>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="grouped-native-select">Driver</InputLabel>
+              <Select native defaultValue="" id="grouped-native-select">
+                <option aria-label="None" value="" />
+                <option value={1}>Petro</option>
+                <option value={2}>Alex</option>
+                <option value={3}>Arthur</option>
+              </Select>
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="grouped-select">Type</InputLabel>
+              <Select defaultValue="" id="grouped-select">
+                <MenuItem value={1}>Pickup</MenuItem>
+                <MenuItem value={2}>Dropoff</MenuItem>
+                <MenuItem value={3}>Other</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="grouped-select">Day</InputLabel>
+              <Select defaultValue="" id="grouped-select">
+                <MenuItem value={1}>Sunday</MenuItem>
+                <MenuItem value={2}>Monday</MenuItem>
+                <MenuItem value={3}>Tuesday </MenuItem>
+                <MenuItem value={4}>Wednesday</MenuItem>
+                <MenuItem value={5}>Thurday</MenuItem>
+                <MenuItem value={6}>Friday</MenuItem>
+                <MenuItem value={7}>Saturday</MenuItem>
+              </Select>
+            </FormControl>
+            <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="grouped-select">Week</InputLabel>
+              <Select defaultValue="" id="grouped-select">
+                <MenuItem value={1}>Week 1</MenuItem>
+                <MenuItem value={2}>week 2</MenuItem>
+                <MenuItem value={3}>week 3</MenuItem>
+                <MenuItem value={4}>week 4</MenuItem>
+                <MenuItem value={5}>week 5</MenuItem>
+              </Select>
+            </FormControl>
+            <button
+              className={classes.button}
+              type="button"
+              onClick={handleOpen}
+            >
+              Send
+            </button>
+          </div>
+        </Fade>
       </Modal>
     </div>
   );
@@ -124,7 +160,6 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-//colocar monday...
 function createData(
   sunday,
   monday,
@@ -145,6 +180,7 @@ function createData(
 //   createData("Gingerbread", 356, 16.0, 49, 3.9),
 // ];
 
+//Styles
 const useStyles = makeStyles({
   table: {
     minWidth: 400,
@@ -160,6 +196,7 @@ const useStyles = makeStyles({
   paper: {
     position: "absolute",
     width: 400,
+    background: "white",
   },
   button: {
     position: "absolute",
@@ -167,6 +204,11 @@ const useStyles = makeStyles({
     border: "1px solid #000",
     top: "7px",
     right: "32px",
+  },
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
@@ -197,6 +239,7 @@ const hours = [
   "11 PM",
 ];
 
+//APP
 export default function App() {
   const classes = useStyles();
 
