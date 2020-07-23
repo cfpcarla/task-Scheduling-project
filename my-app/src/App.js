@@ -53,7 +53,7 @@ const SimpleModal = () => {
 
   return (
     <div>
-      <button type="button" onClick={handleOpen}>
+      <button className={classes.button} type="button" onClick={handleOpen}>
         Add Task
       </button>
       <Modal
@@ -80,6 +80,16 @@ const GroupedSelect = () => {
           <option value={1}>Petro</option>
           <option value={2}>Alex</option>
           <option value={3}>Arthur</option>
+        </Select>
+      </FormControl>
+      <FormControl className={classes.formControl}>
+        <InputLabel htmlFor="grouped-select">Week</InputLabel>
+        <Select defaultValue="" id="grouped-select">
+          <MenuItem value={1}>Week 1</MenuItem>
+          <MenuItem value={2}>week 2</MenuItem>
+          <MenuItem value={3}>week 3</MenuItem>
+          <MenuItem value={4}>week 4</MenuItem>
+          <MenuItem value={5}>week 5</MenuItem>
         </Select>
       </FormControl>
       <FormControl className={classes.formControl}>
@@ -150,10 +160,13 @@ const useStyles = makeStyles({
   paper: {
     position: "absolute",
     width: 400,
-    // backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    // boxShadow: theme.shadows[5],
-    // padding: theme.spacing(2, 4, 3),
+  },
+  button: {
+    position: "absolute",
+    width: 100,
+    border: "1px solid #000",
+    top: "7px",
+    right: "32px",
   },
 });
 
