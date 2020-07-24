@@ -18,6 +18,16 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 
+const data = [
+  {
+    driver: "Petro",
+    type: "Dropoff",
+    day: "Monday",
+    week: 2,
+    startTime: 10,
+    endTime: 12,
+  },
+];
 //Modal
 const SimpleModal = () => {
   const classes = useStyles();
@@ -31,103 +41,143 @@ const SimpleModal = () => {
     setOpen(false);
   };
 
+  function handleSubmit(e) {
+    e.preventDefault();
+  }
+
   return (
     <div>
       <button className={classes.button} type="button" onClick={handleOpen}>
         Add Task
       </button>
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={open}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
+      <form
+        onSubmit={handleSubmit}
+        className={classes.root}
+        noValidate
+        autoComplete="off"
       >
-        <Fade in={open}>
-          <div className={classes.paper}>
-            <h4 id="transition-modal-title">Add new task</h4>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="grouped-native-select">Driver</InputLabel>
-              <Select native defaultValue="" id="grouped-native-select">
-                <option aria-label="None" value="" />
-                <option value={1}>Petro</option>
-                <option value={2}>Alex</option>
-                <option value={3}>Arthur</option>
-              </Select>
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="grouped-select">Type</InputLabel>
-              <Select defaultValue="" id="grouped-select">
-                <MenuItem value={1}>Pickup</MenuItem>
-                <MenuItem value={2}>Dropoff</MenuItem>
-                <MenuItem value={3}>Other</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="grouped-select">Day</InputLabel>
-              <Select defaultValue="" id="grouped-select">
-                <MenuItem value={1}>Sunday</MenuItem>
-                <MenuItem value={2}>Monday</MenuItem>
-                <MenuItem value={3}>Tuesday </MenuItem>
-                <MenuItem value={4}>Wednesday</MenuItem>
-                <MenuItem value={5}>Thurday</MenuItem>
-                <MenuItem value={6}>Friday</MenuItem>
-                <MenuItem value={7}>Saturday</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="grouped-select">Week</InputLabel>
-              <Select defaultValue="" id="grouped-select">
-                <MenuItem value={1}>Week 1</MenuItem>
-                <MenuItem value={2}>week 2</MenuItem>
-                <MenuItem value={3}>week 3</MenuItem>
-                <MenuItem value={4}>week 4</MenuItem>
-              </Select>
-            </FormControl>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="grouped-select">Hour</InputLabel>
-              <Select defaultValue="" id="grouped-select">
-                <MenuItem value={1}> 12 Am </MenuItem>
-                <MenuItem value={2}> 1 Am </MenuItem>
-                <MenuItem value={3}> 2 Am </MenuItem>
-                <MenuItem value={4}> 3 Am </MenuItem>
-                <MenuItem value={5}> 4 Am </MenuItem>
-                <MenuItem value={6}> 5 Am </MenuItem>
-                <MenuItem value={7}> 6 Am </MenuItem>
-                <MenuItem value={8}> 7 Am </MenuItem>
-                <MenuItem value={9}> 8 Am </MenuItem>
-                <MenuItem value={10}> 9 Am </MenuItem>
-                <MenuItem value={11}> 10 Am </MenuItem>
-                <MenuItem value={12}> 11 Am </MenuItem>
-                <MenuItem value={13}> 12 Pm </MenuItem>
-                <MenuItem value={14}> 1 Pm </MenuItem>
-                <MenuItem value={15}> 2 Pm </MenuItem>
-                <MenuItem value={16}> 3 Pm </MenuItem>
-                <MenuItem value={17}> 4 Pm </MenuItem>
-                <MenuItem value={18}> 5 Pm </MenuItem>
-                <MenuItem value={19}> 6 Pm </MenuItem>
-                <MenuItem value={20}> 7 Pm </MenuItem>
-                <MenuItem value={21}> 8 Pm </MenuItem>
-                <MenuItem value={22}> 9 Pm </MenuItem>
-                <MenuItem value={22}> 10 Pm </MenuItem>
-                <MenuItem value={23}> 11 Pm </MenuItem>
-              </Select>
-            </FormControl>
-            <button
-              className={classes.button}
-              type="button"
-              onClick={handleOpen}
-            >
-              Send
-            </button>
-          </div>
-        </Fade>
-      </Modal>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <div className={classes.paper}>
+              <h4 id="transition-modal-title">Add new task</h4>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="grouped-native-select">Driver</InputLabel>
+                <Select native defaultValue="" id="grouped-native-select">
+                  <option aria-label="None" value="" />
+                  <option value={1}>Petro</option>
+                  <option value={2}>Alex</option>
+                  <option value={3}>Arthur</option>
+                </Select>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="grouped-select">Type</InputLabel>
+                <Select defaultValue="" id="grouped-select">
+                  <MenuItem value={1}>Pickup</MenuItem>
+                  <MenuItem value={2}>Dropoff</MenuItem>
+                  <MenuItem value={3}>Other</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="grouped-select">Day</InputLabel>
+                <Select defaultValue="" id="grouped-select">
+                  <MenuItem value={1}>Sunday</MenuItem>
+                  <MenuItem value={2}>Monday</MenuItem>
+                  <MenuItem value={3}>Tuesday </MenuItem>
+                  <MenuItem value={4}>Wednesday</MenuItem>
+                  <MenuItem value={5}>Thurday</MenuItem>
+                  <MenuItem value={6}>Friday</MenuItem>
+                  <MenuItem value={7}>Saturday</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="grouped-select">Week</InputLabel>
+                <Select defaultValue="" id="grouped-select">
+                  <MenuItem value={1}>Week 1</MenuItem>
+                  <MenuItem value={2}>week 2</MenuItem>
+                  <MenuItem value={3}>week 3</MenuItem>
+                  <MenuItem value={4}>week 4</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="grouped-select">StartTime</InputLabel>
+                <Select defaultValue="" id="grouped-select">
+                  <MenuItem value={1}> 12 Am </MenuItem>
+                  <MenuItem value={2}> 1 Am </MenuItem>
+                  <MenuItem value={3}> 2 Am </MenuItem>
+                  <MenuItem value={4}> 3 Am </MenuItem>
+                  <MenuItem value={5}> 4 Am </MenuItem>
+                  <MenuItem value={6}> 5 Am </MenuItem>
+                  <MenuItem value={7}> 6 Am </MenuItem>
+                  <MenuItem value={8}> 7 Am </MenuItem>
+                  <MenuItem value={9}> 8 Am </MenuItem>
+                  <MenuItem value={10}> 9 Am </MenuItem>
+                  <MenuItem value={11}> 10 Am </MenuItem>
+                  <MenuItem value={12}> 11 Am </MenuItem>
+                  <MenuItem value={13}> 12 Pm </MenuItem>
+                  <MenuItem value={14}> 1 Pm </MenuItem>
+                  <MenuItem value={15}> 2 Pm </MenuItem>
+                  <MenuItem value={16}> 3 Pm </MenuItem>
+                  <MenuItem value={17}> 4 Pm </MenuItem>
+                  <MenuItem value={18}> 5 Pm </MenuItem>
+                  <MenuItem value={19}> 6 Pm </MenuItem>
+                  <MenuItem value={20}> 7 Pm </MenuItem>
+                  <MenuItem value={21}> 8 Pm </MenuItem>
+                  <MenuItem value={22}> 9 Pm </MenuItem>
+                  <MenuItem value={22}> 10 Pm </MenuItem>
+                  <MenuItem value={23}> 11 Pm </MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="grouped-select">EndTime</InputLabel>
+                <Select defaultValue="" id="grouped-select">
+                  <MenuItem value={1}> 12 Am </MenuItem>
+                  <MenuItem value={2}> 1 Am </MenuItem>
+                  <MenuItem value={3}> 2 Am </MenuItem>
+                  <MenuItem value={4}> 3 Am </MenuItem>
+                  <MenuItem value={5}> 4 Am </MenuItem>
+                  <MenuItem value={6}> 5 Am </MenuItem>
+                  <MenuItem value={7}> 6 Am </MenuItem>
+                  <MenuItem value={8}> 7 Am </MenuItem>
+                  <MenuItem value={9}> 8 Am </MenuItem>
+                  <MenuItem value={10}> 9 Am </MenuItem>
+                  <MenuItem value={11}> 10 Am </MenuItem>
+                  <MenuItem value={12}> 11 Am </MenuItem>
+                  <MenuItem value={13}> 12 Pm </MenuItem>
+                  <MenuItem value={14}> 1 Pm </MenuItem>
+                  <MenuItem value={15}> 2 Pm </MenuItem>
+                  <MenuItem value={16}> 3 Pm </MenuItem>
+                  <MenuItem value={17}> 4 Pm </MenuItem>
+                  <MenuItem value={18}> 5 Pm </MenuItem>
+                  <MenuItem value={19}> 6 Pm </MenuItem>
+                  <MenuItem value={20}> 7 Pm </MenuItem>
+                  <MenuItem value={21}> 8 Pm </MenuItem>
+                  <MenuItem value={22}> 9 Pm </MenuItem>
+                  <MenuItem value={22}> 10 Pm </MenuItem>
+                  <MenuItem value={23}> 11 Pm </MenuItem>
+                </Select>
+              </FormControl>
+              <button
+                className={classes.button}
+                type="button"
+                onClick={handleOpen}
+              >
+                Send
+              </button>
+            </div>
+          </Fade>
+        </Modal>
+      </form>
     </div>
   );
 };
