@@ -18,6 +18,39 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+
+//CARD
+const SimpleCard = () => {
+  const classes = useStyles();
+  return (
+    <Card className={classes.card}>
+      <CardContent>
+        <Typography
+          className={classes.title}
+          color="textSecondary"
+          gutterBottom
+        >
+          TASK
+        </Typography>
+        <Typography variant="h8" component="h5" className={classes.pos}>
+          DRIVER
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button className={classes.buttonDelete} size="small">
+          Delete
+        </Button>
+        <Button className={classes.buttonUpdate} size="small">
+          Update
+        </Button>
+      </CardActions>
+    </Card>
+  );
+};
 
 let data = [
   {
@@ -336,6 +369,16 @@ const useStyles = makeStyles({
     alignItems: "center",
     justifyContent: "center",
   },
+  card: {
+    width: "150px",
+    height: "135px",
+  },
+  title: {
+    fontSize: 10,
+  },
+  pos: {
+    marginBottom: 12,
+  },
 });
 
 const hours = [
@@ -392,6 +435,7 @@ export default function App() {
               </TableRow>
             </TableHead>
             <TableBody>
+              <SimpleCard />
               {hours.map((hour) => (
                 <StyledTableRow key={hour}>
                   <StyledTableCell component="th" scope="row">
