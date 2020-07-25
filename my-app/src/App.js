@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -22,9 +22,10 @@ import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
+import alasql from "alasql";
 
 //CARD
-const SimpleCard = () => {
+const SimpleCard = ({ type }) => {
   const classes = useStyles();
   return (
     <Card className={classes.card}>
@@ -37,7 +38,7 @@ const SimpleCard = () => {
           TASK
         </Typography>
         <Typography variant="h8" component="h5" className={classes.pos}>
-          DRIVER
+          {type}
         </Typography>
       </CardContent>
       <CardActions>
@@ -52,6 +53,7 @@ const SimpleCard = () => {
   );
 };
 
+//DATA
 let data = [
   {
     driver: "Petro",
@@ -62,6 +64,7 @@ let data = [
     endTime: 12,
   },
 ];
+
 //Modal
 const SimpleModal = () => {
   const classes = useStyles();
@@ -72,6 +75,7 @@ const SimpleModal = () => {
   const [week, setWeek] = React.useState();
   const [startTime, setStartTime] = React.useState();
   const [endTime, setEndTime] = React.useState();
+  // const [count, setCount] = useState(0);
 
   const handleOpen = () => {
     setOpen(true);
@@ -91,8 +95,12 @@ const SimpleModal = () => {
       startTime: startTime,
       endTime: endTime,
     });
-    console.log(data);
+    // let res = alasql("SELECT type AS type FROM ? GROUP BY type", [data]);
+    // console.log(res);
+    // let res2 = alasql("SELECT driver FROM ? WHERE driver", [data]);
+    // console.log(res2);
   }
+  // useEffect(() => {}, [setType]);
 
   return (
     <div>
@@ -411,12 +419,16 @@ const hours = [
 //APP
 export default function App() {
   const classes = useStyles();
+  const [driver, setDriver] = React.useState();
+
+  let res = alasql("SELECT * FROM ? WHERE driver='Petro'", [data]);
+  console.log(data);
 
   return (
     <div className={classes.grid}>
       <Grid container spacing={12}>
         <Box>
-          <GroupedSelect />
+          <GroupedSelect onChange={(e) => setDriver(e.target.value)} />
         </Box>
         <Box>
           <SimpleModal />
@@ -435,13 +447,14 @@ export default function App() {
               </TableRow>
             </TableHead>
             <TableBody>
-              <SimpleCard />
               {hours.map((hour) => (
                 <StyledTableRow key={hour}>
                   <StyledTableCell component="th" scope="row">
                     {hour}
                   </StyledTableCell>
-                  <StyledTableCell align="right"></StyledTableCell>
+                  <StyledTableCell align="right">
+                    <SimpleCard />
+                  </StyledTableCell>
                   <StyledTableCell align="right"></StyledTableCell>
                   <StyledTableCell align="right"></StyledTableCell>
                   <StyledTableCell align="right"></StyledTableCell>
