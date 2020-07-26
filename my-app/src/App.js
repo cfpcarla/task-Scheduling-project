@@ -56,7 +56,7 @@ const SimpleCard = ({ type }) => {
 //DATA
 let data = [
   {
-    driver: "Petro",
+    driver: "petro",
     type: "Dropoff",
     day: "Monday",
     week: 2,
@@ -272,17 +272,23 @@ const SimpleModal = () => {
 };
 
 //Drop Down
-const GroupedSelect = () => {
+const GroupedSelect = (props) => {
   const classes = useStyles();
+
   return (
     <div>
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="grouped-native-select">Drivers</InputLabel>
-        <Select native defaultValue="" id="grouped-native-select">
+        <Select
+          native
+          defaultValue=""
+          id="grouped-native-select"
+          onChange={(e) => props.seletcDriverHandler(e.target.value)}
+        >
           <option aria-label="None" value="" />
-          <option value={1}>Petro</option>
-          <option value={2}>Alex</option>
-          <option value={3}>Arthur</option>
+          <option value={"petro"}>Petro</option>
+          <option value={"alex"}>Alex</option>
+          <option value={"arthur"}>Arthur</option>
         </Select>
       </FormControl>
       <FormControl className={classes.formControl}>
@@ -421,14 +427,17 @@ export default function App() {
   const classes = useStyles();
   const [driver, setDriver] = React.useState();
 
-  let res = alasql("SELECT * FROM ? WHERE driver='Petro'", [data]);
-  console.log(data);
+  useEffect(() => {
+    let res = alasql("SELECT * FROM ? WHERE driver=?", [data, driver]);
+    console.log(res);
+    console.log(driver);
+  });
 
   return (
     <div className={classes.grid}>
       <Grid container spacing={12}>
         <Box>
-          <GroupedSelect onChange={(e) => setDriver(e.target.value)} />
+          <GroupedSelect seletcDriverHandler={(driver) => setDriver(driver)} />
         </Box>
         <Box>
           <SimpleModal />
