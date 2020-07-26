@@ -283,7 +283,7 @@ const GroupedSelect = (props) => {
           native
           defaultValue=""
           id="grouped-native-select"
-          onChange={(e) => props.seletcDriverHandler(e.target.value)}
+          onChange={(e) => props.selectDriverHandler(e.target.value)}
         >
           <option aria-label="None" value="" />
           <option value={"petro"}>Petro</option>
@@ -293,7 +293,11 @@ const GroupedSelect = (props) => {
       </FormControl>
       <FormControl className={classes.formControl}>
         <InputLabel htmlFor="grouped-select">Week</InputLabel>
-        <Select defaultValue="" id="grouped-select">
+        <Select
+          defaultValue=""
+          id="grouped-select"
+          onChange={(e) => props.selectWeekHandler(e.target.value)}
+        >
           <MenuItem value={1}>Week 1</MenuItem>
           <MenuItem value={2}>week 2</MenuItem>
           <MenuItem value={3}>week 3</MenuItem>
@@ -426,10 +430,13 @@ const hours = [
 export default function App() {
   const classes = useStyles();
   const [driver, setDriver] = React.useState();
+  const [week, setWeek] = React.useState();
 
   useEffect(() => {
     let res = alasql("SELECT * FROM ? WHERE driver=?", [data, driver]);
+    let res2 = alasql("SELECT * FROM ? WHERE week=?", [data, week]);
     console.log(res);
+    console.log(res2);
     console.log(driver);
   });
 
@@ -437,7 +444,10 @@ export default function App() {
     <div className={classes.grid}>
       <Grid container spacing={12}>
         <Box>
-          <GroupedSelect seletcDriverHandler={(driver) => setDriver(driver)} />
+          <GroupedSelect
+            selectWeekHandler={(week) => setWeek(week)}
+            selectDriverHandler={(driver) => setDriver(driver)}
+          />
         </Box>
         <Box>
           <SimpleModal />
