@@ -74,7 +74,7 @@ const SimpleModal = (props) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.selectDataHandler(driver, type, day, week, startTime, endTime);
+    props.taskCreationHandler(driver, type, day, week, startTime, endTime);
   }
 
   return (
@@ -313,18 +313,6 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(
-  sunday,
-  monday,
-  tuesday,
-  wednesday,
-  thurday,
-  friday,
-  saturday
-) {
-  return { sunday, monday, tuesday, wednesday, thurday, friday, saturday };
-}
-
 //Styles
 const useStyles = makeStyles({
   table: {
@@ -409,20 +397,26 @@ export default function App() {
       endTime: 12,
     },
   ]);
-  // data.push({
-  //   driver: driver,
-  //   type: type,
-  //   day: day,
-  //   week: week,
-  //   startTime: startTime,
-  //   endTime: endTime,
-  // });
+
+  const createNewTask = (driver, type, day, week, startTime, endTime) => {
+    setData(
+      data.concat({
+        driver: driver,
+        type: type,
+        day: day,
+        week: week,
+        startTime: startTime,
+        endTime: endTime,
+      })
+    );
+  };
+
   useEffect(() => {
     let res = alasql("SELECT * FROM ? WHERE driver=?", [data, driver]);
     console.log(res);
     let res2 = alasql("SELECT * FROM ? WHERE week=?", [data, week]);
     console.log(res2);
-    console.log(driver);
+    console.log(data);
   });
 
   return (
@@ -435,7 +429,16 @@ export default function App() {
           />
         </Box>
         <Box>
-          <SimpleModal selectDataHandler={(data) => setData(data)} />
+          <SimpleModal
+            taskCreationHandler={(
+              driver,
+              type,
+              day,
+              week,
+              startTime,
+              endTime
+            ) => createNewTask(driver, type, day, week, startTime, endTime)}
+          />
         </Box>
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="customized table">
