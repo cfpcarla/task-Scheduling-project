@@ -42,31 +42,19 @@ const SimpleCard = ({ type }) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button className={classes.buttonDelete} size="small">
+        {/* <Button className={classes.buttonDelete} size="small">
           Delete
         </Button>
         <Button className={classes.buttonUpdate} size="small">
           Update
-        </Button>
+        </Button> */}
       </CardActions>
     </Card>
   );
 };
 
-//DATA
-let data = [
-  {
-    driver: "petro",
-    type: "Dropoff",
-    day: "Monday",
-    week: 2,
-    startTime: 10,
-    endTime: 12,
-  },
-];
-
 //Modal
-const SimpleModal = () => {
+const SimpleModal = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [driver, setDriver] = React.useState();
@@ -75,7 +63,6 @@ const SimpleModal = () => {
   const [week, setWeek] = React.useState();
   const [startTime, setStartTime] = React.useState();
   const [endTime, setEndTime] = React.useState();
-  // const [count, setCount] = useState(0);
 
   const handleOpen = () => {
     setOpen(true);
@@ -87,20 +74,8 @@ const SimpleModal = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    data.push({
-      driver: driver,
-      type: type,
-      day: day,
-      week: week,
-      startTime: startTime,
-      endTime: endTime,
-    });
-    // let res = alasql("SELECT type AS type FROM ? GROUP BY type", [data]);
-    // console.log(res);
-    // let res2 = alasql("SELECT driver FROM ? WHERE driver", [data]);
-    // console.log(res2);
+    props.selectDataHandler(driver, type, day, week, startTime, endTime);
   }
-  // useEffect(() => {}, [setType]);
 
   return (
     <div>
@@ -137,9 +112,9 @@ const SimpleModal = () => {
                   onChange={(e) => setDriver(e.target.value)}
                 >
                   <option aria-label="None" value="" />
-                  <option value={"Petro"}>Petro</option>
-                  <option value={"Alex"}>Alex</option>
-                  <option value={"Arthur"}>Arthur</option>
+                  <option value={"petro"}>Petro</option>
+                  <option value={"alex"}>Alex</option>
+                  <option value={"arthur"}>Arthur</option>
                 </Select>
               </FormControl>
               <FormControl className={classes.formControl}>
@@ -323,6 +298,7 @@ const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
+    paddingRight: "50px",
   },
   body: {
     fontSize: 14,
@@ -349,37 +325,29 @@ function createData(
   return { sunday, monday, tuesday, wednesday, thurday, friday, saturday };
 }
 
-// const rows = [
-//   createData("monday", 159, 6.0, 24, 4.0),
-//   createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-//   createData("Eclair", 262, 16.0, 24, 6.0),
-//   createData("Cupcake", 305, 3.7, 67, 4.3),
-//   createData("Gingerbread", 356, 16.0, 49, 3.9),
-// ];
-
 //Styles
 const useStyles = makeStyles({
   table: {
     minWidth: 400,
   },
   grid: {
-    marginTop: "1px",
+    marginTop: "15px",
   },
   formControl: {
-    width: "100px",
-    height: "55px",
+    width: "150px",
+    height: "50px",
     marginTop: "-20px",
   },
   paper: {
     position: "absolute",
-    width: 400,
+    width: 450,
     background: "white",
   },
   button: {
     position: "absolute",
     width: 100,
     border: "1px solid #000",
-    top: "7px",
+    top: "13px",
     right: "32px",
   },
   modal: {
@@ -388,8 +356,8 @@ const useStyles = makeStyles({
     justifyContent: "center",
   },
   card: {
-    width: "150px",
-    height: "135px",
+    width: "100px",
+    height: "50px",
   },
   title: {
     fontSize: 10,
@@ -431,11 +399,28 @@ export default function App() {
   const classes = useStyles();
   const [driver, setDriver] = React.useState();
   const [week, setWeek] = React.useState();
-
+  const [data, setData] = React.useState([
+    {
+      driver: "petro",
+      type: "Dropoff",
+      day: "Monday",
+      week: 2,
+      startTime: 10,
+      endTime: 12,
+    },
+  ]);
+  // data.push({
+  //   driver: driver,
+  //   type: type,
+  //   day: day,
+  //   week: week,
+  //   startTime: startTime,
+  //   endTime: endTime,
+  // });
   useEffect(() => {
     let res = alasql("SELECT * FROM ? WHERE driver=?", [data, driver]);
-    let res2 = alasql("SELECT * FROM ? WHERE week=?", [data, week]);
     console.log(res);
+    let res2 = alasql("SELECT * FROM ? WHERE week=?", [data, week]);
     console.log(res2);
     console.log(driver);
   });
@@ -450,7 +435,7 @@ export default function App() {
           />
         </Box>
         <Box>
-          <SimpleModal />
+          <SimpleModal selectDataHandler={(data) => setData(data)} />
         </Box>
         <TableContainer component={Paper}>
           <Table className={classes.table} aria-label="customized table">
@@ -471,9 +456,8 @@ export default function App() {
                   <StyledTableCell component="th" scope="row">
                     {hour}
                   </StyledTableCell>
-                  <StyledTableCell align="right">
-                    <SimpleCard />
-                  </StyledTableCell>
+                  <SimpleCard />
+                  <StyledTableCell align="right"></StyledTableCell>
                   <StyledTableCell align="right"></StyledTableCell>
                   <StyledTableCell align="right"></StyledTableCell>
                   <StyledTableCell align="right"></StyledTableCell>
@@ -488,21 +472,4 @@ export default function App() {
       </Grid>
     </div>
   );
-}
-
-{
-  /* {rows.map((row) => (
-            <StyledTableRow key={row.name}>
-              <StyledTableCell component="th" scope="row">
-                {row.name}
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.sunday}</StyledTableCell>
-              <StyledTableCell align="right">{row.monday}</StyledTableCell>
-              <StyledTableCell align="right">{row.tuesday}</StyledTableCell>
-              <StyledTableCell align="right">{row.wednesday}</StyledTableCell>
-              <StyledTableCell align="right">{row.thurday}</StyledTableCell>
-              <StyledTableCell align="right">{row.friday}</StyledTableCell>
-              <StyledTableCell align="right">{row.saturday}</StyledTableCell>
-            </StyledTableRow>
-          ))} */
 }
