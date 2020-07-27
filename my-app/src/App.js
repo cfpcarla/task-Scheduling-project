@@ -23,7 +23,7 @@ import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import alasql from "alasql";
-
+import TextField from "@material-ui/core/TextField";
 //CARD
 const SimpleCard = ({ type }) => {
   const classes = useStyles();
@@ -63,6 +63,8 @@ const SimpleModal = (props) => {
   const [week, setWeek] = React.useState();
   const [startTime, setStartTime] = React.useState();
   const [endTime, setEndTime] = React.useState();
+  const [location, setLocation] = React.useState();
+  const [description, setDescription] = React.useState();
 
   const handleOpen = () => {
     setOpen(true);
@@ -74,7 +76,16 @@ const SimpleModal = (props) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.taskCreationHandler(driver, type, day, week, startTime, endTime);
+    props.taskCreationHandler(
+      driver,
+      type,
+      day,
+      week,
+      startTime,
+      endTime,
+      location,
+      description
+    );
   }
 
   return (
@@ -224,6 +235,22 @@ const SimpleModal = (props) => {
                   <MenuItem value={23}> 11 Pm </MenuItem>
                 </Select>
               </FormControl>
+              <TextField
+                className={classes.TextField}
+                onChange={(e) => setLocation(e.target.value)}
+                id="outlined-textarea"
+                label="Location"
+                multiline
+                variant="outlined"
+              />
+              <TextField
+                className={classes.TextField}
+                onChange={(e) => setDescription(e.target.value)}
+                id="outlined-textarea"
+                label="Description"
+                multiline
+                variant="outlined"
+              />
               <Button
                 variant="button"
                 size="large"
@@ -322,15 +349,20 @@ const useStyles = makeStyles({
     marginTop: "15px",
   },
   formControl: {
-    width: "150px",
+    width: "200px",
     height: "50px",
-    marginTop: "-20px",
+    // marginTop: "-20px",
   },
   paper: {
     position: "absolute",
-    width: 450,
+    width: 500,
+    height: "350px",
     background: "white",
   },
+  TextField: {
+    marginTop: "13px",
+  },
+
   button: {
     position: "absolute",
     width: 100,
@@ -395,10 +427,21 @@ export default function App() {
       week: 2,
       startTime: 10,
       endTime: 12,
+      location: "toronto",
+      description: "Make shampoo deliveries",
     },
   ]);
 
-  const createNewTask = (driver, type, day, week, startTime, endTime) => {
+  const createNewTask = (
+    driver,
+    type,
+    day,
+    week,
+    startTime,
+    endTime,
+    location,
+    description
+  ) => {
     setData(
       data.concat({
         driver: driver,
@@ -407,6 +450,8 @@ export default function App() {
         week: week,
         startTime: startTime,
         endTime: endTime,
+        location: location,
+        description: description,
       })
     );
   };
@@ -436,8 +481,21 @@ export default function App() {
               day,
               week,
               startTime,
-              endTime
-            ) => createNewTask(driver, type, day, week, startTime, endTime)}
+              endTime,
+              location,
+              description
+            ) =>
+              createNewTask(
+                driver,
+                type,
+                day,
+                week,
+                startTime,
+                endTime,
+                location,
+                description
+              )
+            }
           />
         </Box>
         <TableContainer component={Paper}>
