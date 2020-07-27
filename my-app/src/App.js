@@ -457,11 +457,12 @@ export default function App() {
   };
 
   useEffect(() => {
-    let res = alasql("SELECT * FROM ? WHERE driver=?", [data, driver]);
+    let res = alasql("SELECT * FROM ? WHERE driver=? and week=?", [
+      data,
+      driver,
+      week,
+    ]);
     console.log(res);
-    let res2 = alasql("SELECT * FROM ? WHERE week=?", [data, week]);
-    console.log(res2);
-    console.log(data);
   });
 
   return (
