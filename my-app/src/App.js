@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import {
   withStyles,
   makeStyles,
@@ -29,7 +29,7 @@ import {
 import alasql from "alasql";
 
 //CARD Show the task
-const SimpleCard = ({ type }) => {
+const SimpleCard = ({ type, day }) => {
   const classes = useStyles();
   return (
     <Card className={classes.card}>
@@ -39,7 +39,7 @@ const SimpleCard = ({ type }) => {
           color="textSecondary"
           gutterBottom
         >
-          TASK
+          {day}
         </Typography>
         <Typography variant="h8" component="h5" className={classes.pos}>
           {type}
@@ -90,6 +90,7 @@ const SimpleModal = (props) => {
       location,
       description
     );
+    setOpen(false);
   }
 
   return (
@@ -141,9 +142,9 @@ const SimpleModal = (props) => {
                   id="grouped-select"
                   onChange={(e) => setType(e.target.value)}
                 >
-                  <MenuItem value={"Pickup"}>Pickup</MenuItem>
-                  <MenuItem value={"Dropoff"}>Dropoff</MenuItem>
-                  <MenuItem value={"Other"}>Other</MenuItem>
+                  <MenuItem value={"pickup"}>Pickup</MenuItem>
+                  <MenuItem value={"dropoff"}>Dropoff</MenuItem>
+                  <MenuItem value={"other"}>Other</MenuItem>
                 </Select>
               </FormControl>
               <FormControl className={classes.formControl}>
@@ -153,13 +154,13 @@ const SimpleModal = (props) => {
                   id="grouped-select"
                   onChange={(e) => setDay(e.target.value)}
                 >
-                  <MenuItem value={1}>Sunday</MenuItem>
-                  <MenuItem value={2}>Monday</MenuItem>
-                  <MenuItem value={3}>Tuesday </MenuItem>
-                  <MenuItem value={4}>Wednesday</MenuItem>
-                  <MenuItem value={5}>Thurday</MenuItem>
-                  <MenuItem value={6}>Friday</MenuItem>
-                  <MenuItem value={7}>Saturday</MenuItem>
+                  <MenuItem value={"sunday"}>Sunday</MenuItem>
+                  <MenuItem value={"monday"}>Monday</MenuItem>
+                  <MenuItem value={"tuesday"}>Tuesday </MenuItem>
+                  <MenuItem value={"wednesday"}>Wednesday</MenuItem>
+                  <MenuItem value={"thursday"}>Thursday</MenuItem>
+                  <MenuItem value={"friday"}>Friday</MenuItem>
+                  <MenuItem value={"saturday"}>Saturday</MenuItem>
                 </Select>
               </FormControl>
               <FormControl className={classes.formControl}>
@@ -267,7 +268,6 @@ const SimpleModal = (props) => {
                 gutterBottom
                 className={classes.button}
                 onClick={handleSubmit}
-                onClose={true}
                 type="submit"
               >
                 Send
@@ -365,7 +365,6 @@ const useStyles = makeStyles({
     width: 500,
     height: "350px",
     background: "white",
-    marginLeft: "40px",
   },
   h4: {
     marginLeft: "60px",
@@ -394,7 +393,6 @@ const useStyles = makeStyles({
   },
   title: {
     fontSize: 10,
-    marginLeft: "40px",
   },
   pos: {
     marginBottom: 12,
@@ -428,14 +426,6 @@ const hours = [
   "11 PM",
 ];
 
-// const rows = [
-//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-//   createData('Eclair', 262, 16.0, 24, 6.0),
-//   createData('Cupcake', 305, 3.7, 67, 4.3),
-//   createData('Gingerbread', 356, 16.0, 49, 3.9),
-// ];
-
 //APP TABLE
 export default function App() {
   const classes = useStyles();
@@ -444,13 +434,13 @@ export default function App() {
   const [data, setData] = React.useState([
     {
       driver: "petro",
-      type: "Dropoff",
-      day: "Monday",
+      type: "dropoff",
+      day: "monday",
       week: 2,
       startTime: 10,
       endTime: 12,
       location: "toronto",
-      description: "Make shampoo deliveries",
+      description: "make shampoo deliveries",
     },
   ]);
 
@@ -478,13 +468,15 @@ export default function App() {
     );
   };
 
-  useEffect(() => {
-    let res = alasql("SELECT * FROM ? WHERE driver=? and week=?", [
-      data,
-      driver,
-      week,
-    ]);
-    console.log(res);
+  let result = alasql("SELECT * FROM ? WHERE driver=? and week=?", [
+    data,
+    driver,
+    week,
+  ]);
+
+  let tasksCatalog = {};
+  result.map((task) => {
+    tasksCatalog[`${task.day}-${task.startTime}`] = task;
   });
 
   return (
@@ -525,11 +517,12 @@ export default function App() {
           <Table className={classes.table} aria-label="customized table">
             <TableHead>
               <TableRow>
+                <StyledTableCell align="right">Time</StyledTableCell>
                 <StyledTableCell align="right">Sunday</StyledTableCell>
                 <StyledTableCell align="right">Monday</StyledTableCell>
                 <StyledTableCell align="right">Tuesday</StyledTableCell>
                 <StyledTableCell align="right">Wednesday</StyledTableCell>
-                <StyledTableCell align="right">Thurday</StyledTableCell>
+                <StyledTableCell align="right">Thursday</StyledTableCell>
                 <StyledTableCell align="right">Friday</StyledTableCell>
                 <StyledTableCell align="right">Saturday</StyledTableCell>
               </TableRow>
@@ -540,14 +533,45 @@ export default function App() {
                   <StyledTableCell component="th" scope="row">
                     {hour}
                   </StyledTableCell>
-                  <SimpleCard />
-                  <StyledTableCell align="right"></StyledTableCell>
-                  <StyledTableCell align="right"></StyledTableCell>
-                  <StyledTableCell align="right"></StyledTableCell>
-                  <StyledTableCell align="right"></StyledTableCell>
-                  <StyledTableCell align="right"></StyledTableCell>
-                  <StyledTableCell align="right"></StyledTableCell>
-                  <StyledTableCell align="right"></StyledTableCell>
+                  <StyledTableCell align="right" className={"sunday"}>
+                    {tasksCatalog[`sunday-${hours.indexOf(hour)}`] ? (
+                      <SimpleCard />
+                    ) : (
+                      ""
+                    )}
+                  </StyledTableCell>
+                  <StyledTableCell align="right" className={"monday"}>
+                    {tasksCatalog[`monday-${hours.indexOf(hour)}`] ? (
+                      <SimpleCard
+                        type={
+                          tasksCatalog[`monday-${hours.indexOf(hour)}`].type
+                        }
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </StyledTableCell>
+                  <StyledTableCell
+                    align="right"
+                    className={"tuesday"}
+                  ></StyledTableCell>
+                  <StyledTableCell
+                    align="right"
+                    className={"wednesday"}
+                  ></StyledTableCell>
+                  {/* <SimpleCard /> */}
+                  <StyledTableCell
+                    align="right"
+                    className={"thursday"}
+                  ></StyledTableCell>
+                  <StyledTableCell
+                    align="right"
+                    className={"friday"}
+                  ></StyledTableCell>
+                  <StyledTableCell
+                    align="right"
+                    className={"saturday"}
+                  ></StyledTableCell>
                 </StyledTableRow>
               ))}
               <TableRow>
