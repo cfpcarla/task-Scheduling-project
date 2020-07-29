@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
 import {
+  withStyles,
+  makeStyles,
   Table,
   TableBody,
   TableCell,
@@ -27,7 +28,7 @@ import {
 } from "@material-ui/core";
 import alasql from "alasql";
 
-//CARD
+//CARD Show the task
 const SimpleCard = ({ type }) => {
   const classes = useStyles();
   return (
@@ -56,7 +57,7 @@ const SimpleCard = ({ type }) => {
   );
 };
 
-//Modal
+//Modal ADD Task
 const SimpleModal = (props) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
@@ -116,7 +117,9 @@ const SimpleModal = (props) => {
         >
           <Fade in={open}>
             <div className={classes.paper}>
-              <h4 id="transition-modal-title">Add new task</h4>
+              <h4 className={classes.h4} id="transition-modal-title">
+                Add new task
+              </h4>
               <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="grouped-native-select">Driver</InputLabel>
                 <Select
@@ -264,6 +267,7 @@ const SimpleModal = (props) => {
                 gutterBottom
                 className={classes.button}
                 onClick={handleSubmit}
+                onClose={true}
                 type="submit"
               >
                 Send
@@ -354,16 +358,22 @@ const useStyles = makeStyles({
   formControl: {
     width: "200px",
     height: "50px",
-    // marginTop: "-20px",
+    marginLeft: "40px",
   },
   paper: {
     position: "absolute",
     width: 500,
     height: "350px",
     background: "white",
+    marginLeft: "40px",
   },
+  h4: {
+    marginLeft: "60px",
+  },
+
   TextField: {
     marginTop: "13px",
+    marginLeft: "40px",
   },
 
   button: {
@@ -384,6 +394,7 @@ const useStyles = makeStyles({
   },
   title: {
     fontSize: 10,
+    marginLeft: "40px",
   },
   pos: {
     marginBottom: 12,
@@ -425,7 +436,7 @@ const hours = [
 //   createData('Gingerbread', 356, 16.0, 49, 3.9),
 // ];
 
-//APP
+//APP TABLE
 export default function App() {
   const classes = useStyles();
   const [driver, setDriver] = React.useState();
