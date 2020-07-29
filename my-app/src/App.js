@@ -1,29 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import Grid from "@material-ui/core/Grid";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import Box from "@material-ui/core/Box";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import Button from "@material-ui/core/Button";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Typography from "@material-ui/core/Typography";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Grid,
+  InputLabel,
+  ListSubheader,
+  MenuItem,
+  FormControl,
+  Select,
+  Box,
+  Modal,
+  Backdrop,
+  Fade,
+  Button,
+  Card,
+  CardActions,
+  CardContent,
+  Typography,
+  TextField,
+} from "@material-ui/core";
 import alasql from "alasql";
-import TextField from "@material-ui/core/TextField";
+
 //CARD
 const SimpleCard = ({ type }) => {
   const classes = useStyles();
@@ -414,6 +417,14 @@ const hours = [
   "11 PM",
 ];
 
+// const rows = [
+//   createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
+//   createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+//   createData('Eclair', 262, 16.0, 24, 6.0),
+//   createData('Cupcake', 305, 3.7, 67, 4.3),
+//   createData('Gingerbread', 356, 16.0, 49, 3.9),
+// ];
+
 //APP
 export default function App() {
   const classes = useStyles();
@@ -528,6 +539,15 @@ export default function App() {
                   <StyledTableCell align="right"></StyledTableCell>
                 </StyledTableRow>
               ))}
+              <TableRow>
+                <TableCell component="th" scope="row">
+                  {/* {startTime} */}
+                </TableCell>
+                <TableCell align="right"></TableCell>
+                <TableCell align="right"></TableCell>
+                <TableCell align="right"></TableCell>
+                <TableCell align="right"></TableCell>
+              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
@@ -535,3 +555,4 @@ export default function App() {
     </div>
   );
 }
+// key={startTime}
