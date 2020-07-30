@@ -2,9 +2,11 @@
 
 - Project is a Dispatche/ Driver Task Scheduling App. The idea is a single dispatcher can manage the tasks of multiple drivers.
 
-![initial_page]()
+![Initial page](https://github.com/cfpcarla/task-Scheduling-project/blob/master/my-app/src/images/initial_page.jpg)
 
-![modal_page]()
+![Add New Task](https://github.com/cfpcarla/task-Scheduling-project/blob/master/my-app/src/images/add_task.jpg)
+
+![Task](https://github.com/cfpcarla/task-Scheduling-project/blob/master/my-app/src/images/task.jpg)
 
 ## Technologies
 
