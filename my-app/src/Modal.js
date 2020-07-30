@@ -159,16 +159,10 @@ export default function SimpleModal(props) {
                   defaultValue=""
                   id="grouped-select"
                   onChange={(e) => setWeek(e.target.value)}
-                  // { index(54).map((value) => (
-                  //   <option key={value} value={value}>
-                  //     {value}
-                  //   </option>
-                  // ))}
                 >
-                  <MenuItem value={1}>Week 1</MenuItem>
-                  <MenuItem value={2}>week 2</MenuItem>
-                  <MenuItem value={3}>week 3</MenuItem>
-                  <MenuItem value={4}>week 4</MenuItem>
+                  {[...Array(52)].map((x, i) => (
+                    <MenuItem value={i + 1}>Week {i + 1}</MenuItem>
+                  ))}
                 </Select>
               </FormControl>
               <FormControl className={classes.formControl}>
