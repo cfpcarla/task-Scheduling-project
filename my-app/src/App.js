@@ -29,20 +29,22 @@ import {
 import alasql from "alasql";
 
 //CARD Show the task
-const SimpleCard = ({ type, day }) => {
+const SimpleCard = ({ driver, type, location, description }) => {
   const classes = useStyles();
   return (
     <Card className={classes.card}>
       <CardContent>
-        <Typography
-          className={classes.title}
-          color="textSecondary"
-          gutterBottom
-        >
-          {day}
+        <Typography variant="h8" component="h5" className={classes.title}>
+          {driver}
         </Typography>
-        <Typography variant="h8" component="h5" className={classes.pos}>
+        <Typography variant="h8" component="h5" className={classes.title}>
           {type}
+        </Typography>
+        <Typography variant="h8" component="h5" className={classes.title}>
+          {location}
+        </Typography>
+        <Typography variant="h8" component="h5" className={classes.title}>
+          {description}
         </Typography>
       </CardContent>
       <CardActions>
@@ -388,14 +390,11 @@ const useStyles = makeStyles({
     justifyContent: "center",
   },
   card: {
-    width: "100px",
-    height: "50px",
+    width: "200px",
+    height: "100px",
   },
   title: {
     fontSize: 10,
-  },
-  pos: {
-    marginBottom: 12,
   },
 });
 
@@ -535,7 +534,19 @@ export default function App() {
                   </StyledTableCell>
                   <StyledTableCell align="right" className={"sunday"}>
                     {tasksCatalog[`sunday-${hours.indexOf(hour)}`] ? (
-                      <SimpleCard />
+                      <SimpleCard
+                        driver={
+                          tasksCatalog[`sunday${hours.indexOf(hour)}`].driver
+                        }
+                        type={tasksCatalog[`sunday${hours.indexOf(hour)}`].type}
+                        location={
+                          tasksCatalog[`sunday${hours.indexOf(hour)}`].location
+                        }
+                        description={
+                          tasksCatalog[`sunday${hours.indexOf(hour)}`]
+                            .description
+                        }
+                      />
                     ) : (
                       ""
                     )}
@@ -543,35 +554,134 @@ export default function App() {
                   <StyledTableCell align="right" className={"monday"}>
                     {tasksCatalog[`monday-${hours.indexOf(hour)}`] ? (
                       <SimpleCard
+                        driver={
+                          tasksCatalog[`monday-${hours.indexOf(hour)}`].driver
+                        }
                         type={
                           tasksCatalog[`monday-${hours.indexOf(hour)}`].type
+                        }
+                        location={
+                          tasksCatalog[`monday-${hours.indexOf(hour)}`].location
+                        }
+                        description={
+                          tasksCatalog[`monday-${hours.indexOf(hour)}`]
+                            .description
                         }
                       />
                     ) : (
                       ""
                     )}
                   </StyledTableCell>
-                  <StyledTableCell
-                    align="right"
-                    className={"tuesday"}
-                  ></StyledTableCell>
-                  <StyledTableCell
-                    align="right"
-                    className={"wednesday"}
-                  ></StyledTableCell>
-                  {/* <SimpleCard /> */}
-                  <StyledTableCell
-                    align="right"
-                    className={"thursday"}
-                  ></StyledTableCell>
-                  <StyledTableCell
-                    align="right"
-                    className={"friday"}
-                  ></StyledTableCell>
-                  <StyledTableCell
-                    align="right"
-                    className={"saturday"}
-                  ></StyledTableCell>
+                  <StyledTableCell align="right" className={"tuesday"}>
+                    {tasksCatalog[`tuesday-${hours.indexOf(hour)}`] ? (
+                      <SimpleCard
+                        driver={
+                          tasksCatalog[`tuesday-${hours.indexOf(hour)}`].driver
+                        }
+                        type={
+                          tasksCatalog[`tuesday-${hours.indexOf(hour)}`].type
+                        }
+                        location={
+                          tasksCatalog[`tuesday-${hours.indexOf(hour)}`]
+                            .location
+                        }
+                        description={
+                          tasksCatalog[`tuesday-${hours.indexOf(hour)}`]
+                            .description
+                        }
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </StyledTableCell>
+                  <StyledTableCell align="right" className={"wednesday"}>
+                    {tasksCatalog[`wednesday-${hours.indexOf(hour)}`] ? (
+                      <SimpleCard
+                        driver={
+                          tasksCatalog[`wednesday-${hours.indexOf(hour)}`]
+                            .driver
+                        }
+                        type={
+                          tasksCatalog[`wednesday-${hours.indexOf(hour)}`].type
+                        }
+                        location={
+                          tasksCatalog[`wednesday-${hours.indexOf(hour)}`]
+                            .location
+                        }
+                        description={
+                          tasksCatalog[`wednesday-${hours.indexOf(hour)}`]
+                            .description
+                        }
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </StyledTableCell>
+                  <StyledTableCell align="right" className={"thursday"}>
+                    {tasksCatalog[`thursday-${hours.indexOf(hour)}`] ? (
+                      <SimpleCard
+                        driver={
+                          tasksCatalog[`thursday-${hours.indexOf(hour)}`].driver
+                        }
+                        type={
+                          tasksCatalog[`thursday-${hours.indexOf(hour)}`].type
+                        }
+                        location={
+                          tasksCatalog[`thursday-${hours.indexOf(hour)}`]
+                            .location
+                        }
+                        description={
+                          tasksCatalog[`thursday-${hours.indexOf(hour)}`]
+                            .description
+                        }
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </StyledTableCell>
+                  <StyledTableCell align="right" className={"friday"}>
+                    {tasksCatalog[`friday-${hours.indexOf(hour)}`] ? (
+                      <SimpleCard
+                        driver={
+                          tasksCatalog[`friday-${hours.indexOf(hour)}`].driver
+                        }
+                        type={
+                          tasksCatalog[`friday-${hours.indexOf(hour)}`].type
+                        }
+                        location={
+                          tasksCatalog[`friday-${hours.indexOf(hour)}`].location
+                        }
+                        description={
+                          tasksCatalog[`friday-${hours.indexOf(hour)}`]
+                            .description
+                        }
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </StyledTableCell>
+                  <StyledTableCell align="right" className={"saturday"}>
+                    {tasksCatalog[`saturday-${hours.indexOf(hour)}`] ? (
+                      <SimpleCard
+                        driver={
+                          tasksCatalog[`saturday-${hours.indexOf(hour)}`].driver
+                        }
+                        type={
+                          tasksCatalog[`saturday-${hours.indexOf(hour)}`].type
+                        }
+                        location={
+                          tasksCatalog[`saturday-${hours.indexOf(hour)}`]
+                            .location
+                        }
+                        description={
+                          tasksCatalog[`saturday-${hours.indexOf(hour)}`]
+                            .description
+                        }
+                      />
+                    ) : (
+                      ""
+                    )}
+                  </StyledTableCell>
                 </StyledTableRow>
               ))}
               <TableRow>
