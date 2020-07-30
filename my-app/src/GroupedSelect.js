@@ -61,7 +61,7 @@ export default function GroupedSelect(props) {
           ))}
         </Select>
       </FormControl>
-      <FormControl className={classes.formControl1}>
+      {/* <FormControl className={classes.formControl1}>
         <InputLabel htmlFor="grouped-select">Download</InputLabel>
         <Select defaultValue="" id="grouped-select">
           <MenuItem value={1}>2 days</MenuItem>
@@ -70,7 +70,7 @@ export default function GroupedSelect(props) {
           <MenuItem value={4}>14 days</MenuItem>
           <MenuItem value={5}>28 days</MenuItem>
         </Select>
-      </FormControl>
+      </FormControl> */}
     </div>
   );
 }

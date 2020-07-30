@@ -53,45 +53,45 @@ const useStyles = makeStyles({
   },
 });
 
-function AlertDialog() {
-  const [open, setOpen] = React.useState(false);
+// function AlertDialog() {
+//   const [open, setOpen] = React.useState(false);
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+//   const handleClickOpen = () => {
+//     setOpen(true);
+//   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+//   const handleClose = () => {
+//     setOpen(false);
+//   };
 
-  return (
-    <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open alert dialog
-      </Button>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            Task alredy exist . Do you want to replace this task?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            No
-          </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
-            Yes
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
-  );
-}
+//   return (
+//     <div>
+//       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+//         Open alert dialog
+//       </Button>
+//       <Dialog
+//         open={open}
+//         onClose={handleClose}
+//         aria-labelledby="alert-dialog-title"
+//         aria-describedby="alert-dialog-description"
+//       >
+//         <DialogContent>
+//           <DialogContentText id="alert-dialog-description">
+//             Task alredy exist . Do you want to replace this task?
+//           </DialogContentText>
+//         </DialogContent>
+//         <DialogActions>
+//           <Button onClick={handleClose} color="primary">
+//             No
+//           </Button>
+//           <Button onClick={handleClose} color="primary" autoFocus>
+//             Yes
+//           </Button>
+//         </DialogActions>
+//       </Dialog>
+//     </div>
+//   );
+// }
 
 //Modal ADD Task
 export default function SimpleModal(props) {
@@ -105,6 +105,18 @@ export default function SimpleModal(props) {
   const [endTime, setEndTime] = React.useState();
   const [location, setLocation] = React.useState();
   const [description, setDescription] = React.useState();
+  const [data, setData] = React.useState([
+    {
+      driver: "petro",
+      type: "dropoff",
+      day: "monday",
+      week: 2,
+      startTime: 10,
+      endTime: 12,
+      location: "toronto",
+      description: "make shampoo deliveries",
+    },
+  ]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -116,24 +128,27 @@ export default function SimpleModal(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.taskCreationHandler(
-      driver,
-      type,
-      day,
-      week,
-      startTime,
-      endTime,
-      location,
-      description
+    let conflictTask = alasql(
+      "SELECT * FROM ? WHERE driver= ? AND  day= ? AND startTime= ? AND week= ?",
+      [data, driver, day, startTime, week]
     );
-    setOpen(false);
+    if (conflictTask.length > 0) {
+      alert("Task alredy exist!");
+    } else {
+      props.taskCreationHandler(
+        driver,
+        type,
+        day,
+        week,
+        startTime,
+        endTime,
+        location,
+        description
+      );
+      setOpen(false);
+    }
   }
 
-  // let existingTask = alasql(
-  //   "SELECT * FROM ? WHERE driver= ? AND  day= ? AND startTime= ? AND week= ?",
-  //   [data, driver, day, startTime, week]
-  // );
-  // console.log(existingTask);
   return (
     <div>
       <button className={classes.button} type="button" onClick={handleOpen}>
@@ -311,7 +326,6 @@ export default function SimpleModal(props) {
                 type="submit"
               >
                 Send
-                {/* {existingTask.length > 0 ? <AlertDialog /> : ""} */}
               </Button>
             </div>
           </Fade>
