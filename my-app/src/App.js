@@ -132,6 +132,7 @@ export default function App() {
   result.map((task) => {
     tasksCatalog[`${task.day}-${task.startTime}`] = task;
   });
+  console.log(tasksCatalog);
 
   return (
     <div className={classes.grid}>
@@ -191,14 +192,16 @@ export default function App() {
                     {tasksCatalog[`sunday-${hours.indexOf(hour)}`] ? (
                       <SimpleCard
                         driver={
-                          tasksCatalog[`sunday${hours.indexOf(hour)}`].driver
+                          tasksCatalog[`sunday-${hours.indexOf(hour)}`].driver
                         }
-                        type={tasksCatalog[`sunday${hours.indexOf(hour)}`].type}
+                        type={
+                          tasksCatalog[`sunday-${hours.indexOf(hour)}`].type
+                        }
                         location={
-                          tasksCatalog[`sunday${hours.indexOf(hour)}`].location
+                          tasksCatalog[`sunday-${hours.indexOf(hour)}`].location
                         }
                         description={
-                          tasksCatalog[`sunday${hours.indexOf(hour)}`]
+                          tasksCatalog[`sunday-${hours.indexOf(hour)}`]
                             .description
                         }
                       />
