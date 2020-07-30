@@ -35,16 +35,16 @@ const SimpleCard = ({ driver, type, location, description }) => {
     <Card className={classes.card}>
       <CardContent>
         <Typography variant="h8" component="h5" className={classes.title}>
-          {driver}
+          Driver: {driver}
         </Typography>
         <Typography variant="h8" component="h5" className={classes.title}>
-          {type}
+          Type: {type}
         </Typography>
         <Typography variant="h8" component="h5" className={classes.title}>
-          {location}
+          Location: {location}
         </Typography>
         <Typography variant="h8" component="h5" className={classes.title}>
-          {description}
+          Description: {description}
         </Typography>
       </CardContent>
       <CardActions>
@@ -395,6 +395,7 @@ const useStyles = makeStyles({
   },
   title: {
     fontSize: 10,
+    textAlign: "left",
   },
 });
 
