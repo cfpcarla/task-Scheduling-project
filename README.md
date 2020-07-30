@@ -15,10 +15,10 @@ Project is created with:
 - React with materialUI and alasq.
 
 ```
-1. Code is in App.js
-2. Npm install
-3. Run the server: `npm start`
-4. Visit `http://localhost:3000/`
+1. Inside folder my-app put in the terminal npm install.
+2. If is necessary put in the terminal npm install @material-ui/core.
+3. Run the server: npm start.
+4. Visit `http://localhost:3000/`.
 ```
 
 ### Improvements

@@ -12,6 +12,8 @@ import {
   Button,
   TextField,
 } from "@material-ui/core";
+import alasql from "alasql";
+import Alert from "@material-ui/lab/Alert";
 
 //Styles
 const useStyles = makeStyles({
@@ -59,6 +61,18 @@ export default function SimpleModal(props) {
   const [endTime, setEndTime] = React.useState();
   const [location, setLocation] = React.useState();
   const [description, setDescription] = React.useState();
+  const [data, setData] = React.useState([
+    {
+      driver: "petro",
+      type: "dropoff",
+      day: "monday",
+      week: 2,
+      startTime: 10,
+      endTime: 12,
+      location: "toronto",
+      description: "make shampoo deliveries",
+    },
+  ]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -81,6 +95,18 @@ export default function SimpleModal(props) {
       description
     );
     setOpen(false);
+
+    //   let validation = alasql("SELECT * FROM ? WHERE startTime= ?", [
+    //     data,
+    //     startTime,
+    //   ]);
+    //   validation.map((task) => {
+    //     if (validation[task] === validation[task]) {
+    //       <Alert severity="info">
+    //         Alredy exist task. Do you want to replace this task?{" "}
+    //       </Alert>;
+    //     }
+    //   });
   }
 
   return (
