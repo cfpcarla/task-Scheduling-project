@@ -11,11 +11,6 @@ import {
   Fade,
   Button,
   TextField,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
 } from "@material-ui/core";
 import alasql from "alasql";
 
@@ -52,46 +47,6 @@ const useStyles = makeStyles({
     marginLeft: "40px",
   },
 });
-
-// function AlertDialog() {
-//   const [open, setOpen] = React.useState(false);
-
-//   const handleClickOpen = () => {
-//     setOpen(true);
-//   };
-
-//   const handleClose = () => {
-//     setOpen(false);
-//   };
-
-//   return (
-//     <div>
-//       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-//         Open alert dialog
-//       </Button>
-//       <Dialog
-//         open={open}
-//         onClose={handleClose}
-//         aria-labelledby="alert-dialog-title"
-//         aria-describedby="alert-dialog-description"
-//       >
-//         <DialogContent>
-//           <DialogContentText id="alert-dialog-description">
-//             Task alredy exist . Do you want to replace this task?
-//           </DialogContentText>
-//         </DialogContent>
-//         <DialogActions>
-//           <Button onClick={handleClose} color="primary">
-//             No
-//           </Button>
-//           <Button onClick={handleClose} color="primary" autoFocus>
-//             Yes
-//           </Button>
-//         </DialogActions>
-//       </Dialog>
-//     </div>
-//   );
-// }
 
 //Modal ADD Task
 export default function SimpleModal(props) {

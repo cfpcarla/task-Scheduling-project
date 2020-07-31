@@ -47,14 +47,7 @@ export default function SimpleCard({ driver, type, location, description }) {
           Description: {description}
         </Typography>
       </CardContent>
-      <CardActions>
-        {/* <Button className={classes.buttonDelete} size="small">
-          Delete
-        </Button>
-        <Button className={classes.buttonUpdate} size="small">
-          Update
-        </Button> */}
-      </CardActions>
+      <CardActions></CardActions>
     </Card>
   );
 }
