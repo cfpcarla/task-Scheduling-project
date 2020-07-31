@@ -1,5 +1,7 @@
 # task-Scheduling-project
 
+### Access here: https://task-scheduling-project.vercel.app/
+
 - This Project is a Dispatcher/ Driver Task Scheduling App. The idea is that a single dispatcher should be able to manage the tasks of multiple drivers.
 
 ![Initial page](https://github.com/cfpcarla/task-Scheduling-project/blob/master/my-app/src/images/initial_page.jpg)
@@ -13,6 +15,7 @@
 Project is created with:
 
 - React with materialUI and alasq.
+- Deployment with Vercel.
 
 ### How to run the App
 
