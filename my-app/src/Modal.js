@@ -53,50 +53,44 @@ const useStyles = makeStyles({
   },
 });
 
-// function AlertDialog() {
-//   const [open, setOpen] = React.useState(false);
+function AlertDialog(props) {
+  const { open, onClose } = props;
 
-//   const handleClickOpen = () => {
-//     setOpen(true);
-//   };
+  const handleClose = () => {
+    onClose();
+  };
 
-//   const handleClose = () => {
-//     setOpen(false);
-//   };
-
-//   return (
-//     <div>
-//       <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-//         Open alert dialog
-//       </Button>
-//       <Dialog
-//         open={open}
-//         onClose={handleClose}
-//         aria-labelledby="alert-dialog-title"
-//         aria-describedby="alert-dialog-description"
-//       >
-//         <DialogContent>
-//           <DialogContentText id="alert-dialog-description">
-//             Task alredy exist . Do you want to replace this task?
-//           </DialogContentText>
-//         </DialogContent>
-//         <DialogActions>
-//           <Button onClick={handleClose} color="primary">
-//             No
-//           </Button>
-//           <Button onClick={handleClose} color="primary" autoFocus>
-//             Yes
-//           </Button>
-//         </DialogActions>
-//       </Dialog>
-//     </div>
-//   );
-// }
+  return (
+    <div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Task alredy exist. Do you want to replace this task?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            No
+          </Button>
+          <Button onClick={handleClose} color="primary" autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}
 
 //Modal ADD Task
 export default function SimpleModal(props) {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [modalOpen, setModalOpen] = React.useState(false);
+  const [alertOpen, setAlertOpen] = React.useState(false);
   const [driver, setDriver] = React.useState();
   const [type, setType] = React.useState();
   const [day, setDay] = React.useState();
@@ -117,21 +111,22 @@ export default function SimpleModal(props) {
   ]);
 
   const handleOpen = () => {
-    setOpen(true);
+    setModalOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setModalOpen(false);
   };
 
-  function handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
     let conflictTask = alasql(
       "SELECT * FROM ? WHERE driver= ? AND  day= ? AND startTime= ? AND week= ?",
       [data, driver, day, startTime, week]
     );
     if (conflictTask.length > 0) {
-      alert("Task alredy exist!");
+      // alert("Task alredy exist!");
+      setAlertOpen(true);
     } else {
       props.taskCreationHandler(
         driver,
@@ -142,9 +137,13 @@ export default function SimpleModal(props) {
         location,
         description
       );
-      setOpen(false);
+      setModalOpen(false);
     }
-  }
+  };
+
+  const onAlertClose = () => {
+    setAlertOpen(false);
+  };
 
   return (
     <div>
@@ -161,7 +160,7 @@ export default function SimpleModal(props) {
           aria-labelledby="transition-modal-title"
           aria-describedby="transition-modal-description"
           className={classes.modal}
-          open={open}
+          open={modalOpen}
           onClose={handleClose}
           closeAfterTransition
           BackdropComponent={Backdrop}
@@ -169,7 +168,7 @@ export default function SimpleModal(props) {
             timeout: 500,
           }}
         >
-          <Fade in={open}>
+          <Fade in={modalOpen}>
             <div className={classes.paper}>
               <h4 className={classes.h4} id="transition-modal-title">
                 Add new task
@@ -291,6 +290,7 @@ export default function SimpleModal(props) {
               >
                 Send
               </Button>
+              <AlertDialog open={alertOpen} onClose={onAlertClose} />
             </div>
           </Fade>
         </Modal>
