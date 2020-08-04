@@ -57,7 +57,6 @@ export default function SimpleModal(props) {
   const [day, setDay] = React.useState();
   const [week, setWeek] = React.useState();
   const [startTime, setStartTime] = React.useState();
-  const [endTime, setEndTime] = React.useState();
   const [location, setLocation] = React.useState();
   const [description, setDescription] = React.useState();
   const [data, setData] = React.useState([
@@ -67,7 +66,6 @@ export default function SimpleModal(props) {
       day: "monday",
       week: 2,
       startTime: 10,
-      endTime: 12,
       location: "toronto",
       description: "make shampoo deliveries",
     },
@@ -96,7 +94,6 @@ export default function SimpleModal(props) {
         day,
         week,
         startTime,
-        endTime,
         location,
         description
       );
@@ -192,39 +189,6 @@ export default function SimpleModal(props) {
                   defaultValue=""
                   id="grouped-select"
                   onChange={(e) => setStartTime(e.target.value)}
-                >
-                  <MenuItem value={0}> 12 Am </MenuItem>
-                  <MenuItem value={1}> 1 Am </MenuItem>
-                  <MenuItem value={2}> 2 Am </MenuItem>
-                  <MenuItem value={3}> 3 Am </MenuItem>
-                  <MenuItem value={4}> 4 Am </MenuItem>
-                  <MenuItem value={5}> 5 Am </MenuItem>
-                  <MenuItem value={6}> 6 Am </MenuItem>
-                  <MenuItem value={7}> 7 Am </MenuItem>
-                  <MenuItem value={8}> 8 Am </MenuItem>
-                  <MenuItem value={9}> 9 Am </MenuItem>
-                  <MenuItem value={10}> 10 Am </MenuItem>
-                  <MenuItem value={11}> 11 Am </MenuItem>
-                  <MenuItem value={12}> 12 Pm </MenuItem>
-                  <MenuItem value={13}> 1 Pm </MenuItem>
-                  <MenuItem value={14}> 2 Pm </MenuItem>
-                  <MenuItem value={15}> 3 Pm </MenuItem>
-                  <MenuItem value={16}> 4 Pm </MenuItem>
-                  <MenuItem value={17}> 5 Pm </MenuItem>
-                  <MenuItem value={18}> 6 Pm </MenuItem>
-                  <MenuItem value={19}> 7 Pm </MenuItem>
-                  <MenuItem value={20}> 8 Pm </MenuItem>
-                  <MenuItem value={21}> 9 Pm </MenuItem>
-                  <MenuItem value={22}> 10 Pm </MenuItem>
-                  <MenuItem value={23}> 11 Pm </MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="grouped-select">EndTime</InputLabel>
-                <Select
-                  defaultValue=""
-                  id="grouped-select"
-                  onChange={(e) => setEndTime(e.target.value)}
                 >
                   <MenuItem value={0}> 12 Am </MenuItem>
                   <MenuItem value={1}> 1 Am </MenuItem>

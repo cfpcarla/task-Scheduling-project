@@ -92,7 +92,6 @@ export default function App() {
       day: "monday",
       week: 2,
       startTime: 10,
-      endTime: 12,
       location: "toronto",
       description: "make shampoo deliveries",
     },
@@ -104,7 +103,6 @@ export default function App() {
     day,
     week,
     startTime,
-    endTime,
     location,
     description
   ) => {
@@ -115,7 +113,6 @@ export default function App() {
         day: day,
         week: week,
         startTime: startTime,
-        endTime: endTime,
         location: location,
         description: description,
       })
@@ -151,7 +148,6 @@ export default function App() {
               day,
               week,
               startTime,
-              endTime,
               location,
               description
             ) =>
@@ -161,7 +157,6 @@ export default function App() {
                 day,
                 week,
                 startTime,
-                endTime,
                 location,
                 description
               )
