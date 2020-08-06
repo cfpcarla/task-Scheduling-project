@@ -54,7 +54,7 @@ const useStyles = makeStyles({
 });
 
 function AlertDialog(props) {
-  const { open, onClose } = props;
+  const { open, time, day, week, onClose } = props;
 
   const handleClose = () => {
     onClose();
@@ -70,7 +70,8 @@ function AlertDialog(props) {
       >
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            Task alredy exist. Do you want to replace this task?
+            There is already an exiting task for the time {time} {day}, week{" "}
+            {week}. Do you want to replace this task
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -125,7 +126,6 @@ export default function SimpleModal(props) {
       [data, driver, day, startTime, week]
     );
     if (conflictTask.length > 0) {
-      // alert("Task alredy exist!");
       setAlertOpen(true);
     } else {
       props.taskCreationHandler(
@@ -138,6 +138,16 @@ export default function SimpleModal(props) {
         description
       );
       setModalOpen(false);
+    }
+  };
+
+  const startTimeIn12HourClockSystem = () => {
+    if (startTime <= 11) {
+      return `${startTime} AM`;
+    } else if (startTime === 12) {
+      return "12 PM";
+    } else {
+      return `${startTime - 12} PM`;
     }
   };
 
@@ -290,7 +300,13 @@ export default function SimpleModal(props) {
               >
                 Send
               </Button>
-              <AlertDialog open={alertOpen} onClose={onAlertClose} />
+              <AlertDialog
+                open={alertOpen}
+                onClose={onAlertClose}
+                day={day}
+                time={startTimeIn12HourClockSystem()}
+                week={week}
+              />
             </div>
           </Fade>
         </Modal>
