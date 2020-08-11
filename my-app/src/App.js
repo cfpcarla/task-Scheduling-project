@@ -100,7 +100,7 @@ export default function App() {
   const deleteTask = (taskToBeRemoved) => {
     setData(
       data.filter((task) => {
-        return (
+        return !(
           task.driver === taskToBeRemoved.driver &&
           task.week === taskToBeRemoved.week &&
           task.day === taskToBeRemoved.day &&
@@ -201,6 +201,7 @@ export default function App() {
                   <StyledTableCell align="right" className={"sunday"}>
                     {tasksCatalog[`sunday-${hours.indexOf(hour)}`] ? (
                       <SimpleCard
+                        taskDeletionHandler={(task) => deleteTask(task)}
                         driver={
                           tasksCatalog[`sunday-${hours.indexOf(hour)}`].driver
                         }
@@ -214,6 +215,9 @@ export default function App() {
                           tasksCatalog[`sunday-${hours.indexOf(hour)}`]
                             .description
                         }
+                        week={week}
+                        startTime={hours.indexOf(hour)}
+                        day={"sunday"}
                       />
                     ) : (
                       ""
@@ -222,6 +226,7 @@ export default function App() {
                   <StyledTableCell align="right" className={"monday"}>
                     {tasksCatalog[`monday-${hours.indexOf(hour)}`] ? (
                       <SimpleCard
+                        taskDeletionHandler={(task) => deleteTask(task)}
                         driver={
                           tasksCatalog[`monday-${hours.indexOf(hour)}`].driver
                         }
@@ -235,6 +240,9 @@ export default function App() {
                           tasksCatalog[`monday-${hours.indexOf(hour)}`]
                             .description
                         }
+                        week={week}
+                        startTime={hours.indexOf(hour)}
+                        day={"monday"}
                       />
                     ) : (
                       ""
@@ -243,6 +251,7 @@ export default function App() {
                   <StyledTableCell align="right" className={"tuesday"}>
                     {tasksCatalog[`tuesday-${hours.indexOf(hour)}`] ? (
                       <SimpleCard
+                        taskDeletionHandler={(task) => deleteTask(task)}
                         driver={
                           tasksCatalog[`tuesday-${hours.indexOf(hour)}`].driver
                         }
@@ -257,6 +266,9 @@ export default function App() {
                           tasksCatalog[`tuesday-${hours.indexOf(hour)}`]
                             .description
                         }
+                        week={week}
+                        startTime={hours.indexOf(hour)}
+                        day={"tuesday"}
                       />
                     ) : (
                       ""
@@ -265,6 +277,7 @@ export default function App() {
                   <StyledTableCell align="right" className={"wednesday"}>
                     {tasksCatalog[`wednesday-${hours.indexOf(hour)}`] ? (
                       <SimpleCard
+                        taskDeletionHandler={(task) => deleteTask(task)}
                         driver={
                           tasksCatalog[`wednesday-${hours.indexOf(hour)}`]
                             .driver
@@ -280,6 +293,9 @@ export default function App() {
                           tasksCatalog[`wednesday-${hours.indexOf(hour)}`]
                             .description
                         }
+                        week={week}
+                        startTime={hours.indexOf(hour)}
+                        day={"wednesday"}
                       />
                     ) : (
                       ""
@@ -288,6 +304,7 @@ export default function App() {
                   <StyledTableCell align="right" className={"thursday"}>
                     {tasksCatalog[`thursday-${hours.indexOf(hour)}`] ? (
                       <SimpleCard
+                        taskDeletionHandler={(task) => deleteTask(task)}
                         driver={
                           tasksCatalog[`thursday-${hours.indexOf(hour)}`].driver
                         }
@@ -302,6 +319,9 @@ export default function App() {
                           tasksCatalog[`thursday-${hours.indexOf(hour)}`]
                             .description
                         }
+                        week={week}
+                        startTime={hours.indexOf(hour)}
+                        day={"thursday"}
                       />
                     ) : (
                       ""
@@ -310,6 +330,7 @@ export default function App() {
                   <StyledTableCell align="right" className={"friday"}>
                     {tasksCatalog[`friday-${hours.indexOf(hour)}`] ? (
                       <SimpleCard
+                        taskDeletionHandler={(task) => deleteTask(task)}
                         driver={
                           tasksCatalog[`friday-${hours.indexOf(hour)}`].driver
                         }
@@ -323,6 +344,9 @@ export default function App() {
                           tasksCatalog[`friday-${hours.indexOf(hour)}`]
                             .description
                         }
+                        week={week}
+                        startTime={hours.indexOf(hour)}
+                        day={"friday"}
                       />
                     ) : (
                       ""
@@ -331,6 +355,7 @@ export default function App() {
                   <StyledTableCell align="right" className={"saturday"}>
                     {tasksCatalog[`saturday-${hours.indexOf(hour)}`] ? (
                       <SimpleCard
+                        taskDeletionHandler={(task) => deleteTask(task)}
                         driver={
                           tasksCatalog[`saturday-${hours.indexOf(hour)}`].driver
                         }
@@ -345,6 +370,9 @@ export default function App() {
                           tasksCatalog[`saturday-${hours.indexOf(hour)}`]
                             .description
                         }
+                        week={week}
+                        startTime={hours.indexOf(hour)}
+                        day={"saturday"}
                       />
                     ) : (
                       ""

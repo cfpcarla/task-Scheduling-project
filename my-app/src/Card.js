@@ -30,8 +30,30 @@ const useStyles = makeStyles({
 });
 
 //CARD Show the task
-export default function SimpleCard({ driver, type, location, description }) {
+export default function SimpleCard({
+  driver,
+  type,
+  location,
+  description,
+  startTime,
+  week,
+  day,
+  taskDeletionHandler,
+}) {
   const classes = useStyles();
+
+  const deleteTask = () => {
+    taskDeletionHandler({
+      driver: driver,
+      type: type,
+      location: location,
+      description: description,
+      week: week,
+      day: day,
+      startTime: startTime,
+    });
+  };
+
   return (
     <Card className={classes.card}>
       <CardContent>
@@ -49,7 +71,11 @@ export default function SimpleCard({ driver, type, location, description }) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button className={classes.buttonDelete} size="small">
+        <Button
+          className={classes.buttonDelete}
+          size="small"
+          onClick={() => deleteTask()}
+        >
           Delete
         </Button>
         <Button className={classes.buttonUpdate} size="small">
