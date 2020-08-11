@@ -57,7 +57,15 @@ function AlertDialog(props) {
   const { open, time, day, week, onClose } = props;
 
   const handleClose = () => {
-    onClose();
+    onClose(false);
+  };
+
+  const handleNo = () => {
+    onClose(false);
+  };
+
+  const handleYes = () => {
+    onClose(true);
   };
 
   return (
@@ -68,6 +76,7 @@ function AlertDialog(props) {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
+        <DialogTitle id="simple-dialog-title">Tasks conflict</DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             There is already an exiting task for the time {time} {day}, week{" "}
@@ -75,10 +84,10 @@ function AlertDialog(props) {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button onClick={handleNo} color="primary">
             No
           </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
+          <Button onClick={handleYes} color="primary" autoFocus>
             Yes
           </Button>
         </DialogActions>
@@ -99,17 +108,6 @@ export default function SimpleModal(props) {
   const [startTime, setStartTime] = React.useState();
   const [location, setLocation] = React.useState();
   const [description, setDescription] = React.useState();
-  const [data, setData] = React.useState([
-    {
-      driver: "petro",
-      type: "dropoff",
-      day: "monday",
-      week: 2,
-      startTime: 10,
-      location: "toronto",
-      description: "make shampoo deliveries",
-    },
-  ]);
 
   const handleOpen = () => {
     setModalOpen(true);
@@ -121,11 +119,13 @@ export default function SimpleModal(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let conflictTask = alasql(
+
+    // Check if there is already a task for that driver, day, week and time
+    let conflictingTask = alasql(
       "SELECT * FROM ? WHERE driver= ? AND  day= ? AND startTime= ? AND week= ?",
-      [data, driver, day, startTime, week]
+      [props.data, driver, day, startTime, week]
     );
-    if (conflictTask.length > 0) {
+    if (conflictingTask.length > 0) {
       setAlertOpen(true);
     } else {
       props.taskCreationHandler(
@@ -151,8 +151,25 @@ export default function SimpleModal(props) {
     }
   };
 
-  const onAlertClose = () => {
+  const onAlertClose = (override) => {
+    if (override) {
+      let conflictingTask = alasql(
+        "SELECT * FROM ? WHERE driver= ? AND  day= ? AND startTime= ? AND week= ?",
+        [props.data, driver, day, startTime, week]
+      );
+      props.taskDeletionHandler(conflictingTask);
+      props.taskCreationHandler(
+        driver,
+        type,
+        day,
+        week,
+        startTime,
+        location,
+        description
+      );
+    }
     setAlertOpen(false);
+    setModalOpen(false);
   };
 
   return (

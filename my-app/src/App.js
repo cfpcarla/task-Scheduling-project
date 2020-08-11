@@ -97,6 +97,19 @@ export default function App() {
     },
   ]);
 
+  const deleteTask = (taskToBeRemoved) => {
+    setData(
+      data.filter((task) => {
+        return (
+          task.driver === taskToBeRemoved.driver &&
+          task.week === taskToBeRemoved.week &&
+          task.day === taskToBeRemoved.day &&
+          task.startTime === taskToBeRemoved.startTime
+        );
+      })
+    );
+  };
+
   const createNewTask = (
     driver,
     type,
@@ -161,6 +174,8 @@ export default function App() {
                 description
               )
             }
+            taskDeletionHandler={(task) => deleteTask(task)}
+            data={data}
           />
         </Box>
         <TableContainer component={Paper}>

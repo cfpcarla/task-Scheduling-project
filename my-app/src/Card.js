@@ -6,6 +6,7 @@ import {
   CardActions,
   CardContent,
   Typography,
+  Button,
 } from "@material-ui/core";
 
 //Styles
@@ -48,12 +49,12 @@ export default function SimpleCard({ driver, type, location, description }) {
         </Typography>
       </CardContent>
       <CardActions>
-        {/* <Button className={classes.buttonDelete} size="small">
+        <Button className={classes.buttonDelete} size="small">
           Delete
         </Button>
         <Button className={classes.buttonUpdate} size="small">
           Update
-        </Button> */}
+        </Button>
       </CardActions>
     </Card>
   );
