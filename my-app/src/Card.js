@@ -20,8 +20,8 @@ const useStyles = makeStyles({
     marginLeft: "40px",
   },
   card: {
-    width: "200px",
-    height: "100px",
+    width: "190px",
+    height: "150px",
   },
   title: {
     fontSize: 10,
